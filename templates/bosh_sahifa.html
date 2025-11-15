@@ -1,0 +1,192 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abbosbek Mebel</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f6f6f9; color: #222; }
+
+        /* HEADER / NAVBAR */
+        header {
+            width: 100%;
+            background: #4e8bff;
+            padding: 15px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fff;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        header h1 { font-size: 24px; font-weight: 700; }
+
+        nav button {
+            background: #ffb300;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 10px 20px;
+            margin-left: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Hover animatsiya va effekt */
+        nav button::before {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        nav button:hover::before {
+            left: 0;
+        }
+
+        nav button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: #e09b00;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            position: relative;
+            height: 95vh;
+            background: url('{% static "site_images/bosh.png" %}') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding-left: 8%;
+            margin-top: 70px; /* header balandligi */
+        }
+
+        .hero-content {
+            max-width: 550px;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
+            animation: fadeIn 1.4s ease;
+        }
+
+        .hero h1 { font-size: 48px; font-weight: 800; color: #1a1a1a; }
+        .hero p { margin: 15px 0; font-size: 18px; }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 30px;
+            background: #ffb300;
+            color: #fff;
+            border-radius: 12px;
+            font-size: 18px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #e09b00;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* CATEGORY SECTION */
+        .section-title { text-align: center; margin: 50px 0 20px; font-size: 32px; font-weight: 700; }
+        .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; padding: 0 8%; }
+        .cat-card { background: #fff; border-radius: 15px; overflow: hidden; box-shadow: 0 4px 18px rgba(0,0,0,0.1); transition: 0.3s ease; }
+        .cat-card:hover { transform: translateY(-10px); }
+        .cat-card img { width: 100%; height: 180px; object-fit: cover; display:block; }
+        .cat-card h3 { padding: 15px; font-size: 20px; }
+
+        /* WHY US */
+        .why-us { margin-top: 60px; background: #fff5d1; padding: 40px 8%; }
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .why-card { background: #fff; padding: 25px; border-radius: 15px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .why-card h4 { font-size: 22px; margin-top: 10px; }
+    </style>
+</head>
+
+<body>
+
+<!-- HEADER / NAVBAR -->
+<header>
+    <h1>Abbosbek Mebel</h1>
+    <nav>
+        <button onclick='location.href="{% url "aloqa" %}"'>Aloqa</button>
+        <button onclick="">Royxatdan O‘tish</button>
+        <button onclick="">Login</button>
+    </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Abbosbek Mebel</h1>
+        <p>Arzon narx – yuqori sifat! Uyingiz uchun eng zo‘r mebellar bizda.</p>
+        <a href="#" class="btn">Mebellarni Ko‘rish</a>
+    </div>
+</section>
+
+<!-- CATEGORIES -->
+<h2 class="section-title">Mebel Kategoriyalari</h2>
+
+<div class="categories">
+    <div class="cat-card">
+        <img src='{% static "site_images/divan.png" %}' alt="Divanlar">
+        <h3>Divanlar</h3>
+    </div>
+    <div class="cat-card">
+        <img src='{% static "site_images/yotoqxona.png" %}' alt="Yotoqxona Mebellari">
+        <h3>Yotoqxona Mebellari</h3>
+    </div>
+    <div class="cat-card">
+        <img src='{% static "site_images/Oshxona.png" %}' alt="Oshxona Garniturlari">
+        <h3>Oshxona Garniturlari</h3>
+    </div>
+    <div class="cat-card">
+        <img src='{% static "site_images/Stollar.png" %}' alt="Stollar & Stullar">
+        <h3>Stollar & Stullar</h3>
+    </div>
+</div>
+
+<!-- WHY US -->
+<section class="why-us">
+    <h2 class="section-title">Nega Aynan Biz?</h2>
+
+    <div class="why-grid">
+        <div class="why-card">
+            <h4>Arzon narx</h4>
+            <p>Bozordan 30% arzon sifatli mebellar.</p>
+        </div>
+
+        <div class="why-card">
+            <h4>Sifat kafolati</h4>
+            <p>Har bir mahsulotga 12 oy kafolat.</p>
+        </div>
+
+        <div class="why-card">
+            <h4>Tez yetkazib berish</h4>
+            <p>O‘zbekiston bo‘ylab 24–48 soatda.</p>
+        </div>
+
+        <div class="why-card">
+            <h4>Ishonchli xizmat</h4>
+            <p>10 yillik tajribaga ega jamoa.</p>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
