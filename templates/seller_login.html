@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abbosbek Mebel - Login</title>
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f6f6f9; color: #222; display: flex; justify-content: center; align-items: center; height: 100vh; }
+
+        /* LOGIN FORM */
+        .login-container {
+            background: rgba(255,255,255,0.95);
+            padding: 50px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.12);
+            animation: popIn 0.9s ease;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .login-container p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .login-form input {
+            width: 100%;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px solid #ddd;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .login-form input:focus {
+            border-color: #4e8bff;
+            box-shadow: 0 5px 15px rgba(78,139,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #ffb300, #e09b00);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn::after {
+            content: "";
+            position: absolute;
+            top: 0; left: -100%;
+            height: 100%; width: 100%;
+            background: rgba(255,255,255,0.25);
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn:hover::after { left: 0; }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.20);
+        }
+
+        .reg-link {
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+            color: #555;
+        }
+
+        .reg-link a {
+            color: #4e8bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.3s ease;
+        }
+
+        .reg-link a:hover { color: #ffb300; }
+
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.85); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @media(max-width: 480px){
+            .login-container { padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2>Kirish</h2>
+    <p>Hisobingizga kirish uchun ma’lumot kiriting</p>
+
+    <form action="#" method="POST" class="login-form">
+        {% csrf_token %}
+        <input type="tel" name="tel" placeholder="telefon raqamingiz" required>
+        <input type="password" name="password" placeholder="Parolingiz" required>
+        <button type="submit" class="submit-btn">Kirish</button>
+    </form>
+
+    <p class="reg-link">Akkountingiz yo‘qmi? <a href='{% url "registratsiya" %}'>Ro‘yxatdan O‘tish</a></p>
+</div>
+
+</body>
+</html>

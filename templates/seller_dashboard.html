@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seller Dashboard</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #eef1f9;
+            overflow-x: hidden;
+        }
+
+        /* HEADER */
+        header {
+            width: 100%;
+            background: linear-gradient(135deg, #5a73fc, #7e42ff);
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            animation: fadeDown 0.7s ease;
+        }
+
+        @keyframes fadeDown {
+            from { transform: translateY(-40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            cursor: pointer;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 5px white; }
+            to { text-shadow: 0 0 15px #ffedff; }
+        }
+
+        nav a {
+            margin-left: 25px;
+            color: white;
+            font-size: 17px;
+            text-decoration: none;
+            padding: 8px 18px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+
+        /* MAIN CONTENT */
+        .container {
+            margin: 40px auto;
+            width: 85%;
+            animation: fadeUp 1s ease;
+        }
+
+        @keyframes fadeUp {
+            from { transform: translateY(40px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .welcome-box {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            text-align: center;
+            margin-bottom: 40px;
+            transition: 0.3s;
+        }
+
+        .welcome-box:hover {
+            transform: scale(1.02);
+        }
+
+        .welcome-box h2 {
+            color: #333;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+
+        .welcome-box p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        /* CARDS */
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.10);
+            transition: 0.3s;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 6px 22px rgba(0,0,0,0.18);
+        }
+
+        .card::after {
+            content: "";
+            position: absolute;
+            width: 160%;
+            height: 160%;
+            background: rgba(120, 90, 255, 0.15);
+            top: -70%;
+            left: -30%;
+            border-radius: 50%;
+            transform: scale(0);
+            transition: 0.4s;
+        }
+
+        .card:hover::after {
+            transform: scale(1);
+        }
+
+        .card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+            color: #333;
+        }
+
+        .card p {
+            color: #555;
+            font-size: 15px;
+        }
+
+        /* FOOTER */
+        footer {
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            color: #666;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="logo">🛍️ Abbosbek Mebel</div>
+
+        <nav>
+            <a href="#">Dashboard</a>
+            <a href='{% url "seller:add_product" %}'>Mahsulot Qo‘shish</a>
+            <a href='{% url "seller:view_products" %}'>Mening Mahsulotlarim</a>
+            <a href='{% url "seller:seller_profile" %}'>Profil</a>
+            <a href="#">Chiqish</a>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <div class="container">
+        
+        <div class="welcome-box">
+            <h2>Assalomu alaykum, {{ seller.first_name }}!</h2>
+            <p>Bu yerda siz mahsulotlaringizni boshqarasiz va do‘koningizni rivojlantirasiz.</p>
+        </div>
+
+        <div class="cards">
+            <div class="card">
+                <h3>Mahsulot Qo‘shish</h3>
+                <p>Do‘koningizga yangi mebellar qo‘shing.</p>
+            </div>
+
+            <div class="card">
+                <h3>Mening Mahsulotlarim</h3>
+                <p>Qo‘shilgan barcha mahsulotlarni ko‘ring, tahrirlang yoki o‘chirib tashlang.</p>
+            </div>
+
+            <div class="card">
+                <h3>Buyurtmalar</h3>
+                <p>Xaridorlar tomonidan berilgan buyurtmalar ro‘yxati.</p>
+            </div>
+
+            <div class="card">
+                <h3>Profilni Tahrirlash</h3>
+                <p>Shaxsiy ma’lumotlaringizni yangilang.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer>
+        © 2025 Abbosbek Mebel — Seller Dashboard
+    </footer>
+
+</body>
+</html>

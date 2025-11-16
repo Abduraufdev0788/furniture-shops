@@ -3,95 +3,139 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sotuvchi ro‘yxatdan o‘tishi</title>
+    <title>Abbosbek Mebel - Seller Ro‘yxatdan O‘tish</title>
+
     <style>
-        body{
-            background: #eef2ff;
-            font-family: 'Segoe UI', sans-serif;
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+        body { background: #f6f6f9; color: #222; display: flex; justify-content: center; align-items: center; height: 100vh; }
+
+        /* REGISTRATION FORM */
+        .register-container {
+            background: rgba(255,255,255,0.95);
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+            width: 100%;
+            max-width: 450px;
+            animation: fadeInUp 1s ease;
         }
-        .container{
-            width: 420px;
-            margin: 80px auto;
-            background: #fff;
-            padding: 30px;
-            border-radius: 16px;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-        h2{
+
+        .register-container h2 {
             text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .register-container p {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .register-form input {
+            width: 100%;
+            padding: 15px 20px;
             margin-bottom: 20px;
-            color: #2d5be5;
-        }
-        input{
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0 15px;
-            border-radius: 10px;
-            border: 1px solid #ccc;
-            outline: none;
-            font-size: 15px;
-            transition: .2s;
-        }
-        input:focus{
-            border-color: #2d5be5;
-            box-shadow: 0 0 8px rgba(45,91,229,0.4);
-        }
-        button{
-            width: 100%;
-            padding: 12px;
-            background: #2d5be5;
-            color: #fff;
-            border: none;
-            border-radius: 10px;
-            cursor: pointer;
+            border: 2px solid #ddd;
+            border-radius: 12px;
             font-size: 16px;
-            transition: .3s;
-            font-weight: bold;
+            outline: none;
+            transition: all 0.3s ease;
         }
-        button:hover{
-            background: #1b3fb1;
+
+        .register-form input:focus {
+            border-color: #4e8bff;
+            box-shadow: 0 5px 15px rgba(78,139,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px 0;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(90deg, #ffb300, #e09b00);
+            color: #fff;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .submit-btn::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255,255,255,0.2);
+            transition: all 0.4s ease;
+        }
+
+        .submit-btn:hover::after {
+            left: 0;
+        }
+
+        .submit-btn:hover {
             transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
         }
-        .error{
-            color: red;
+
+        .login-link {
             text-align: center;
-            margin-bottom: 10px;
-            font-weight: bold;
+            margin-top: 15px;
+            color: #555;
+            font-size: 14px;
         }
-        .success{
-            color: green;
-            text-align: center;
-            margin-bottom: 10px;
-            font-weight: bold;
+
+        .login-link a {
+            color: #4e8bff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #ffb300;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media(max-width: 500px){
+            .register-container { padding: 30px 20px; }
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>Sotuvchi Ro‘yxatdan O‘tishi</h2>
+<div class="register-container">
+    <h2>Seller Ro‘yxatdan O‘tish</h2>
+    <p>Sotuvchi sifatida hisob yaratish uchun ma’lumotlarni kiriting</p>
 
-        {% if error %}
-            <div class="error">{{ error }}</div>
-        {% endif %}
-        {% if success %}
-            <div class="success">{{ success }}</div>
-        {% endif %}
+    <form action="#" method="POST" class="register-form">
+        {% csrf_token %}
+        <input type="text" name="first_name" placeholder="Ismingiz" required>
+        <input type="text" name="last_name" placeholder="Familiyangiz" required>
+        <input type="text" name="shop_name" placeholder="Do‘kon nomi" required>
+        <input type="tel" name="tel" placeholder="Telefon raqamingiz" required>
+        <input type="password" name="password" placeholder="Parol" required>
+        <input type="password" name="confirm_password" placeholder="Parolni tasdiqlang" required>
 
-        <form method="POST">
-            {% csrf_token %}
-            
-            <input type="text" name="first_name" placeholder="Ism" required>
-            <input type="text" name="last_name" placeholder="Familiya" required>
-            <input type="text" name="shop_name" placeholder="Do‘kon nomi" required>
-            <input type="text" name="tel" placeholder="Telefon raqam (9989xx...)" required>
+        <button type="submit" class="submit-btn">Ro‘yxatdan O‘tish</button>
+    </form>
 
-            <input type="password" name="password" placeholder="Parol" required>
-            <input type="password" name="confirm_password" placeholder="Parolni tasdiqlang" required>
-
-            <button type="submit">Ro‘yxatdan o‘tish</button>
-        </form>
-    </div>
+    <p class="login-link">Akkountingiz bor? 
+        <a href="{% url 'seller:login' %}">Seller Login</a>
+    </p>
+</div>
 
 </body>
 </html>

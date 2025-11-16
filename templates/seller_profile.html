@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mening profilim</title>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #e8ecf7;
+            padding: 40px;
+            animation: fadeIn 1s ease;
+        }
+
+        .profile-card {
+            max-width: 600px;
+            margin: auto;
+            background: #f7f9ff;
+            padding: 35px;
+            border-radius: 25px;
+            box-shadow: 8px 8px 20px #c7cbe3,
+                        -8px -8px 20px #ffffff;
+            animation: slideUp 0.9s ease;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #2d5be5;
+            font-size: 26px;
+            animation: popIn 0.8s ease;
+        }
+
+        .info-row {
+            background: #ffffff;
+            padding: 18px 20px;
+            border-radius: 15px;
+            margin-bottom: 18px;
+            box-shadow: inset 2px 2px 5px #d3d7e9,
+                        inset -2px -2px 5px #ffffff;
+            transition: transform 0.25s, box-shadow 0.25s;
+        }
+
+        .info-row:hover {
+            transform: translateY(-3px);
+            box-shadow: 4px 4px 12px #c6cae0,
+                        -4px -4px 12px #ffffff;
+        }
+
+        .info-title {
+            font-size: 14px;
+            color: #5b6da0;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+
+        .info-value {
+            font-size: 18px;
+            color: #1f2d4d;
+            font-weight: 600;
+            word-break: break-word; /* uzun matn tagidan chiqmasligi uchun */
+        }
+
+        .edit-btn {
+            margin-top: 25px;
+            display: block;
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            background: linear-gradient(135deg, #4e8bff, #7a61ff);
+            color: white;
+            box-shadow: 4px 4px 10px #c5cae4,
+                        -4px -4px 10px #ffffff;
+            transition: 0.3s;
+        }
+
+        .edit-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 8px 8px 20px #bfc4db,
+                        -8px -8px 20px #ffffff;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(30px); opacity: 0; }
+            to   { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes popIn {
+            0%   { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="profile-card">
+    <h2>Mening profilim</h2>
+
+    <div class="info-row">
+        <div class="info-title">Ism</div>
+        <div class="info-value">{{ seller.first_name }}</div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-title">Familiya</div>
+        <div class="info-value">{{ seller.last_name }}</div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-title">Telefon</div>
+        <div class="info-value">{{ seller.tel }}</div>
+    </div>
+
+    <div class="info-row">
+        <div class="info-title">Do‘kon nomi</div>
+        <div class="info-value">{{ seller.shop_name }}</div>
+    </div>
+
+    <a href="{% url 'seller:seller_edit' %}" style="text-decoration: none;">
+        <button class="edit-btn">Tahrirlash</button>
+    </a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mening Mahsulotlarim</title>
+<style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', sans-serif;}
+    body { background: #f4f6fc; padding: 20px;}
+
+    h1 { text-align: center; margin-bottom: 30px; color:#2d5be5; }
+
+    .cards { 
+        display: flex; 
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); 
+        gap: 20px; 
+        width: 90%; 
+        margin: 0 auto; 
+    }
+
+    .card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transition: transform 0.3s, box-shadow 0.3s;
+        position: relative;
+        animation: fadeIn 0.5s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-7px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+    }
+
+    .card-body {
+        padding: 15px;
+    }
+
+    .card-body h3 {
+        font-size: 18px;
+        margin-bottom: 8px;
+    }
+
+    .price { 
+        color: #2d5be5; 
+        font-weight: bold; 
+        margin-bottom: 10px; 
+    }
+
+    .card-body p {
+        font-size: 14px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+    .btns {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .edit-btn, .delete-btn {
+        padding: 8px 12px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+    }
+
+    .edit-btn {
+        background: #e8edff;
+        color: #2d5be5;
+    }
+
+    .edit-btn:hover {
+        background: #2d5be5;
+        color: #fff;
+    }
+
+    .delete-btn {
+        background: #ffe9b3;
+        color: #9b6200;
+    }
+
+    .delete-btn:hover {
+        background: #ff4d4d;
+        color: #fff;
+    }
+
+    @keyframes fadeIn {
+        from { opacity:0; transform: translateY(20px); }
+        to { opacity:1; transform: translateY(0);}
+    }
+</style>
+</head>
+<body>
+
+<h1>Mening Mahsulotlarim</h1>
+
+<div class="cards">
+    {% for product in products %}
+    <div class="card">
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        <div class="card-body">
+            <h3>{{ product.name }}</h3>
+            <div class="price">{{ product.price }} so‘m</div>
+            <p>{{ product.description|truncatewords:15 }}</p>
+            <div class="btns">
+                <a href="{% url 'seller:edit_product' product.id %}" class="edit-btn">Tahrirlash</a>
+                <a href="{% url 'seller:delete_product' product.id %}" class="delete-btn">O‘chirish</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>Hozircha mahsulotingiz mavjud emas.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
