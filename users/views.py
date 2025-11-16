@@ -47,13 +47,34 @@ def registratsiya(request: HttpRequest) -> HttpResponse:
             return HttpResponse("Parollar mos emas!")
         if User.objects.filter(tel=new_user_data.tel).exists():
             return HttpResponse("Bu telefon raqam allaqachon ro'yxatdan o'tgan!")
-              
-
+        
         new_user_data.save()
+        request.session['buyer_id'] = new_user_data.id
         return HttpResponse("Ro'yxatdan o'tish muvaffaqiyatli amalga oshirildi!")
 
     return render(request = request, template_name = "registratsiya.html")
-
-
 def login(request: HttpRequest) -> HttpResponse:
+    if request.method == "POST":
+        tel = request.POST.get("tel")
+        password = request.POST.get("password")
+
+        try:
+            user = User.objects.get(tel=tel)
+            if user.password == password:
+                request.session["buyer_id"] = user.id
+                return redirect("profile")
+            else:
+                return HttpResponse("Noto'g'ri parol!")
+        except User.DoesNotExist:
+            return HttpResponse("Bunday foydalanuvchi topilmadi!")
     return render(request = request, template_name = "login.html")
+
+def profile(request:HttpRequest)->HttpResponse:
+    if request.method == "GET":
+        buyer_id = request.session.get('buyer_id')
+        if buyer_id:
+            seller = User.objects.get(id=buyer_id)
+            return render(request, "profile.html", {"seller": seller})
+    
+    else:
+        return HttpResponse('login qilish kerak')

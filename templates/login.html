@@ -115,7 +115,8 @@
     <p>Hisobingizga kirish uchun ma’lumot kiriting</p>
 
     <form action="#" method="POST" class="login-form">
-        <input type="email" name="email" placeholder="Emailingiz" required>
+        {% csrf_token %}
+        <input type="tel" name="tel" placeholder="telefon raqamingiz" required>
         <input type="password" name="password" placeholder="Parolingiz" required>
         <button type="submit" class="submit-btn">Kirish</button>
     </form>
