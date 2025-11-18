@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savatcha</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen p-6">
+
+    <div class="max-w-5xl mx-auto bg-white shadow-lg rounded-xl p-6">
+        <h1 class="text-3xl font-bold mb-6">Savatcha</h1>
+
+        <!-- CART ITEMS LIST -->
+        <div class="space-y-4">
+            {% for item in cart_items %}
+
+            <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-xl shadow-sm">
+
+                <!-- Image -->
+                <img src="{{ item.image.url }}" class="w-28 h-28 object-cover rounded-lg shadow" />
+
+                <!-- Info -->
+                <div class="flex-1">
+                    <h2 class="text-xl font-semibold">{{ item.name }}</h2>
+                    <p class="text-blue-600 font-bold text-lg">{{ item.price }} so'm</p>
+                </div>
+
+                <!-- Quantity -->
+                <div class="flex items-center gap-3">
+                    <button onclick="updateQty({{ item.id }}, 'minus')" class="px-3 py-1 bg-gray-200 rounded-lg text-xl">-</button>
+                    <span class="text-lg font-semibold">{{ item.quantity }}</span>
+                    <button onclick="updateQty({{ item.id }}, 'plus')" class="px-3 py-1 bg-gray-200 rounded-lg text-xl">+</button>
+                </div>
+
+                <!-- Remove -->
+                <button onclick="removeItem({{ item.id }})" class="text-red-500 text-lg font-semibold hover:underline">
+                    O'chirish
+                </button>
+            </div>
+
+            {% endfor %}
+        </div>
+
+        <!-- TOTAL + BUTTON -->
+        <div class="mt-8 flex justify-between items-center border-t pt-4">
+            <div class="text-2xl font-bold">Jami: <span class="text-blue-600">{{ total }} so'm</span></div>
+
+            <button class="px-6 py-3 bg-blue-600 text-white rounded-lg text-lg font-semibold hover:bg-blue-700 transition">
+                Buyurtma berish
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function updateQty(id, action) {
+            console.log("Quantity update:", id, action);
+        }
+
+        function removeItem(id) {
+            console.log("Remove item:", id);
+        }
+    </script>
+
+</body>
+</html>

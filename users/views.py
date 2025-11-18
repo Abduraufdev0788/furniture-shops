@@ -76,8 +76,54 @@ def profile(request:HttpRequest)->HttpResponse:
         buyer_id = request.session.get('buyer_id')
         if buyer_id:
             buyer = User.objects.get(id=buyer_id)
-            
+
             return render(request, "profile.html", {"buyer": buyer, "products": products})
     
     else:
         return HttpResponse('login qilish kerak')
+    
+
+def product_detail(request: HttpRequest, product_id: int) -> HttpResponse:
+    product = Product.objects.get(id=product_id)
+    related_products = Product.objects.filter(category=product.category).exclude(id=product_id)
+    return render(request, "product_detail.html", {"product": product, "related_products": related_products})
+
+def savatcha(request: HttpRequest, product_id: int) -> HttpResponse:
+    buyer_id = request.session.get('buyer_id')
+    if not buyer_id:
+        return redirect('login')
+
+    buyer = User.objects.get(id=buyer_id)
+
+
+    cart = request.session.get("cart", [])
+
+
+    if product_id not in cart:
+        cart.append(product_id)
+
+
+    request.session["cart"] = cart
+
+    products = Product.objects.filter(id__in=cart)
+
+    total = sum(p.price for p in products)
+
+    return render(
+        request=request, 
+        template_name="savatcha.html", context={"buyer": buyer, "cart_items": products, "total": total}
+    )
+
+def savatcha_bolimi(request:HttpRequest)->HttpResponse:
+    buyer_id = request.session.get('buyer_id')
+    if not buyer_id:
+        return redirect('login')
+    
+    cart = request.session.get("cart", [])
+    products = Product.objects.filter(id__in=cart)
+    total = sum(p.price for p in products)
+    
+    return render(
+        request=request, 
+        template_name="profile.html", context={"cart_items": products, "total": total}
+    )
