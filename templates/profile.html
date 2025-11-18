@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="uz">
 <head>
@@ -100,11 +101,12 @@
 
         /* PRODUCT CARDS (o'zgarmagan) */
         .cards{
-            width: 20%;
-            margin: 10px auto 40px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+            width: 90%;
+            margin: 10px, 40px;
+            display: inline-flex;
+            grid-template-columns: repeat(minmax(250px,1fr));
             gap: 22px;
+            padding:22px;
         }
         .card{
             background: #fff;
@@ -113,13 +115,14 @@
             box-shadow: 0 8px 25px rgba(0,0,0,0.1);
             transition: .3s;
             animation: fadeIn .5s ease;
+            width: 300px;
         }
         .card:hover{
             transform: translateY(-7px);
         }
         .card img{
             width: 100%;
-            height: 180px;
+            height: 200px;
             object-fit: cover;
         }
         .card-body{
@@ -206,18 +209,20 @@
     <div class="cards" id="productCards">
 
         <!-- Card 1 -->
+        {% for product in products %}
         <div class="card" data-cat="divan">
-            <img src="https://i.ibb.co/x2FjVQS/divan.jpg">
+            <img src='{{ product.image.url }}'>
             <div class="card-body">
-                <h3>Lux Divan</h3>
-                <div class="price">1 800 000 so‘m</div>
-                <p>Yuqori sifatli, premium matodan ishlangan qulay divan.</p>
+                <h3>{{ product.name }}</h3>
+                <div class="price">{{ product.price }} so‘m</div>
+                <p>{{ product.description }}</p>
                 <div class="btns">
-                    <button class="details-btn">Batafsil</button>
+                    <button class="details-btn" >Batafsil</button>
                     <button class="cart-btn">Savatchaga</button>
                 </div>
             </div>
         </div>
+        {% endfor %}
 
         <!-- Qolgan cardlar o‘zgarmay qoladi -->
 

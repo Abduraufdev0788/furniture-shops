@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpRequest, HttpResponse
+from products.models import Product
 from .models import User
 import requests
 from dotenv import load_dotenv
@@ -71,10 +72,12 @@ def login(request: HttpRequest) -> HttpResponse:
 
 def profile(request:HttpRequest)->HttpResponse:
     if request.method == "GET":
+        products = Product.objects.all()
         buyer_id = request.session.get('buyer_id')
         if buyer_id:
-            seller = User.objects.get(id=buyer_id)
-            return render(request, "profile.html", {"seller": seller})
+            buyer = User.objects.get(id=buyer_id)
+            
+            return render(request, "profile.html", {"buyer": buyer, "products": products})
     
     else:
         return HttpResponse('login qilish kerak')
